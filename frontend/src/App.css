@@ -26,6 +26,11 @@ html, body {
   box-sizing: border-box;
 }
 
+main {
+  padding-top: 80px; /* Navbar height */
+  min-height: 100vh;
+}
+
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);

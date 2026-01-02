@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 import "../App.css";
+import logo from "../assets/logo.png";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -122,22 +123,18 @@ function Navbar() {
     <div className="Navbar-header-container">
       {/* Wrapper to center and constrain the width of the navbar content */}
       
-      {/* 1. Tiers Gauche : Logo */}
+      {/* 1. Left part : Logo */}
       <div className="Navbar-header-link-logo-container">
         <NavLink 
           to="/" 
           ref={firstLinkRef} 
           className={`Navbar-header-link-logo ${menuOpen ? "fade-out" : ""}`}
         >
-          <img
-            src="./src/assets/logo.png"
-            alt="Iloé Photography logo"
-            className="Navbar-header-logo"
-          />
+            <img src={logo} alt="Iloé Photography logo" className="Navbar-header-logo" />
         </NavLink>
       </div>
 
-      {/* 2. Tiers Centre : Navigation */}
+      {/* 2. Center part : Navigation */}
       <nav
         ref={navRef}
         aria-label="Navigation principale"
@@ -146,17 +143,17 @@ function Navbar() {
           onClick={() => setMenuOpen(false)}
         >
           <li><NavLink to="/">Accueil</NavLink></li>
-          <li><NavLink to="/pages/Urbex">Urbex</NavLink></li>
-          <li><NavLink to="/pages/Portrait">Portrait</NavLink></li>
-          <li><NavLink to="/pages/Sport">Sport</NavLink></li>
-          <li><NavLink to="/pages/Voyage">Voyage</NavLink></li>
-          <li><NavLink to="/pages/Series">Séries</NavLink></li>
-          <li><NavLink to="/pages/Boutique">Boutique</NavLink></li>
-          <li><NavLink to="/pages/Apropos">À Propos</NavLink></li>
+          <li><NavLink to="/urbex">Urbex</NavLink></li>
+          <li><NavLink to="/portrait">Portrait</NavLink></li>
+          <li><NavLink to="/sport">Sport</NavLink></li>
+          <li><NavLink to="/voyage">Voyage</NavLink></li>
+          <li><NavLink to="/series">Séries</NavLink></li>
+          <li><NavLink to="/boutique">Boutique</NavLink></li>
+          <li><NavLink to="/about">À Propos</NavLink></li>
         </ul>
       </nav>
 
-      {/* 3. Tiers Droit : Burger (visible uniquement sur mobile) */}
+      {/* 3. Right part : Burger menu on mobile, toggle language and connexion */}
       <div className="Navbar-header-right">
         <button
           ref={buttonRef}
