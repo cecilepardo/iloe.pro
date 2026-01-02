@@ -37,7 +37,8 @@ body {
   font-family: var(--font-body);
 }
 
-/* --- NAVBAR STRUCTURE --- */
+/* --- NAVBAR DESKTOP STRUCTURE --- */
+
 .Navbar-header {
   background-color: var(--bg-card);
   height: var(--nav-height);
@@ -60,105 +61,98 @@ body {
   height: 100%;
 }
 
-/* .Navbar-header-link-logo, 
-.Navbar-links, 
-.Navbar-header-container::after {
-  flex: 1;
-} */
-
-.Navbar-header-link-logo {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.Navbar-header-logo {
-  height: 45px;
-  width: auto;
-}
-
-.Navbar-links {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  list-style: none;
-  padding: 0;
-}
-
-.Navbar-header-container::after {
-  content: "";
-  flex: 1;
-}
-
+/* On définit nos 3 piliers comme des blocs de largeur égale */
 .Navbar-header-link-logo-container,
 nav,
 .Navbar-header-right {
   flex: 1; 
   display: flex;
+  align-items: center;
 }
 
+/* On aligne le contenu à l'intérieur de chaque tiers */
 .Navbar-header-link-logo-container {
-  justify-content: flex-start;
+  justify-content: flex-start; /* Logo calé à gauche */
 }
 
 nav {
-  justify-content: center;
+  justify-content: center; /* Liens calés au centre ABSOLU de la page */
 }
 
 .Navbar-header-right {
-  justify-content: flex-end;
+  justify-content: flex-end; /* Espace vide ou bouton calé à droite */
 }
 
-/* --- NAV LINKS STYLE --- */
+.Navbar-header-logo {
+  height: 45px;
+  width: auto;
+  display: block;
+}
+
+.Navbar-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap; /* Empêche les liens de s'empiler */
+}
+
 .Navbar-links a {
-  font-family: var(--font-titles);
-  color: var(--text-muted);
+  font-family: var(--font-titles); /* Zilla Slab */
+  color: var(--text-muted);       /* Gris sourd de base */
   text-decoration: none;
-  transition: all var(--nav-transition);
   font-weight: 500;
-  position: relative;
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  white-space: nowrap;
-  padding: 4px 0;
+  transition: color var(--nav-transition);
+  /* Ajout crucial pour la barre animée ✨ */
+  position: relative;
+  padding: 4px 0; /* Un peu d'espace pour que la barre ne colle pas trop aux lettres */
+}
+
+.Navbar-links a:hover {
+  color: var(--primary-red);
+  /* Double ombre portée pour l'effet Glow */
+  text-shadow: 0 0 4px rgba(255, 51, 123, 0.3), 
+               0 0 8px rgba(164, 0, 219, 0.2);
+}
+
+/* Le lien de la page actuelle passe en blanc pur sans glow */
+.Navbar-links a.active {
+  color: var(--text-main); /* #ffffff */
+  text-shadow: none;       /* On retire le glow pour plus de sobriété */
+}
+
+/* La barre sous le lien actif devient blanche aussi */
+.Navbar-links a.active::after {
+  width: 100%;
+  background-color: var(--text-main); /* Barre blanche */
 }
 
 .Navbar-links a::after {
   content: '';
   position: absolute;
-  width: 0;
-  height: 2px;
+  width: 0;                /* Elle commence à 0 de large */
+  height: 2px;             /* Épaisseur de la barre */
   bottom: 0;
-  left: 50%;
+  left: 50%;               /* On la place au milieu du lien */
   background-color: var(--primary-red);
   transition: all var(--nav-transition);
-  transform: translateX(-50%);
+  transform: translateX(-50%); /* Pour qu'elle s'étende bien depuis le centre */
 }
 
-.Navbar-links a.active {
-  color: var(--text-main);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-}
-
-.Navbar-links a:hover,
-.Navbar-links a.active:hover {
-  color: var(--primary-red);
-  text-shadow: 0 0 4px rgba(255, 33, 67, 0.3), 
-               0 0 8px rgba(255, 33, 67, 0.2);
-}
-
-.Navbar-links a:hover::after,
-.Navbar-links a.active:hover::after {
+.Navbar-links a:hover::after {
   width: 100%;
 }
 
- .Navbar-hamburger {
-    display: none;
-    background: none;
-    border: none;
-  }
+.Navbar-hamburger {
+  display: none; /* Cache le bouton par défaut sur Desktop */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
 
 /* --- RESPONSIVE --- */
 
@@ -169,20 +163,19 @@ nav {
     flex: none;
   }
   .Navbar-header {
+    display: flex;
+    flex-direction: row; /* On garde l'alignement horizontal logo/burger */
+    align-items: center;  /* Centre verticalement tout ce qui est dedans ✨ */
+    justify-content: center;
+    height: 60px;        /* Fixe une hauteur pour la barre mobile */
+    padding: 0 1rem;     /* Donne un peu d'air sur les côtés sans impacter le haut/bas */
+    background-color: var(--bg-card);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    margin: 0;
-    height: auto;
-    padding: 1rem 0;
-  
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--bg-card);
-  }
+}
 
   .Navbar-mobile-top-bar {
     display: flex;
@@ -195,7 +188,7 @@ nav {
 
   .Navbar-links {
     width: 100%; 
-    position: absolute;
+    position: fixed;
     top: 100%; 
     left: 50%;
     transform: translateX(-50%);
@@ -213,6 +206,9 @@ nav {
     align-items: center;
     padding: 2rem 0;
     z-index: 1000;
+    top: 60px;
+    border-top: none;      /* Optionnel : enlève la bordure haute du menu pour un effet de continuité */
+    border-radius: 0; /* On arrondit seulement le bas pour qu'il soit "collé" en haut */
   }
 
   .Navbar-links.active {

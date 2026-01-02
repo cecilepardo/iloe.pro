@@ -126,9 +126,7 @@ function Navbar() {
       {/* 1. Left part : Logo */}
       <div className="Navbar-header-link-logo-container">
         <NavLink 
-          to="/" 
-          ref={firstLinkRef} 
-          className={`Navbar-header-link-logo ${menuOpen ? "fade-out" : ""}`}
+          to="/" className={`Navbar-header-link-logo ${menuOpen ? "fade-out" : ""}`}
         >
             <img src={logo} alt="Iloé Photography logo" className="Navbar-header-logo" />
         </NavLink>
@@ -141,8 +139,10 @@ function Navbar() {
       >
         <ul className={`Navbar-links ${menuOpen ? "active" : ""}`}
           onClick={() => setMenuOpen(false)}
+          /* Empêche les lecteurs d'écran de lire le menu s'il est fermé */
+          aria-hidden={!menuOpen}
         >
-          <li><NavLink to="/">Accueil</NavLink></li>
+          <li><NavLink to="/" ref={firstLinkRef}>Accueil</NavLink></li>
           <li><NavLink to="/urbex">Urbex</NavLink></li>
           <li><NavLink to="/portrait">Portrait</NavLink></li>
           <li><NavLink to="/sport">Sport</NavLink></li>
